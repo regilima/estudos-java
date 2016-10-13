@@ -1,9 +1,0 @@
-package br.com.casadocodigo.loja.conf;
-
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-@EnableWebMvc
-@ComponentScan(basePackageClasses={HomeController.class})
-public class AppWebConfiguration {
-
-}
