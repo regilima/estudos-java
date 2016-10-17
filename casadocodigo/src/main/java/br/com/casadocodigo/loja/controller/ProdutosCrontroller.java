@@ -5,11 +5,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,7 +59,7 @@ public class ProdutosCrontroller {
 		
 		produtoDao.gravar(produto);
 		redirectAttributes.addFlashAttribute("sucesso","Produto cadastrado com sucesso!");
-		return new ModelAndView("redirect: produtos");
+		return new ModelAndView("redirect:/produtos");
 		
 	}
 	
@@ -69,6 +69,14 @@ public class ProdutosCrontroller {
 		List<Produto> produtos = produtoDao.listar();
 		modelAndView.addObject("produtos", produtos);
 		
+		return modelAndView;
+	}
+	
+	@RequestMapping("/detalhe/{id}")
+	public ModelAndView detalhe(@PathVariable("id") Integer id){
+		ModelAndView modelAndView = new ModelAndView("produtos/detalhe");
+		Produto produto = produtoDao.find(id);
+		modelAndView.addObject("produto",produto);
 		return modelAndView;
 	}
 }
